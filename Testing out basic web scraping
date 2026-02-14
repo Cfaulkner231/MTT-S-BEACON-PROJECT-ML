@@ -1,0 +1,27 @@
+#choose either requests or urllib.request, I think requests works well
+import urllib.request as url 
+import requests
+
+from bs4 import BeautifulSoup as bs
+
+NOAA_url_link = "https://forecast.weather.gov/MapClick.php?CityName=College+Station&state=TX&site=HGX&textField1=30.6005&textField2=-96.3124&e=0"
+response = requests.get(NOAA_url_link)
+
+#Checking if it worked as expected
+#print(response.text)
+
+#Takes url and prints well-formatted HTML
+soup = bs(response.text, 'html.parser')
+#print(soup.prettify())
+
+#Only html from a specific part of the website
+test = soup.find(id = 'current_conditions_detail')
+print(test.prettify())
+
+#Only humidity data: needs to be fixed
+humidity = test.find("td", class_ = "text-right")
+print(humidity)
+
+humidity_num = test.findall("td")
+for humid in humidity_num:
+    print(humid)
