@@ -41,9 +41,10 @@ chunks = [data[i:i+chunk_size] for i in range(0, len(data), chunk_size)]
 #has a incremental value. Like have it close the file once some time threshold has been hit. Maybe like 1 day?
 #then close this file, open another of the same format BUT with an f-string, so like itd be f'NOAADataFile{i}' or 
 #something. Will do once I have access to the pie :P
-
+newFileName='NOAAdatafile'
+iterationNum=0;
 #
-with open('NOAAdatafilee.csv', 'w', newline='') as f:
+with open(f'{newFileName}{iterationNum}.cvs', 'w', newline='') as f:
     minimum=sum(noise_floor_values)/len(noise_floor_values)#minumum value found
     current_i=0;
     gap=.01# reasonable gap
@@ -74,3 +75,24 @@ with open('NOAAdatafilee.csv', 'w', newline='') as f:
         time_local=""
 print(running_time)
 print(f"Written {len(chunks)} rows to output.csv")
+
+
+
+#my thoughts for later. Im under the impression that this python file runs as often as the gnuFile is updated.
+#so with that in mind, what if i loop until the time since the current file that we are getting info from
+#exceeds like 30 minutes or so, then we delete the existing GnuRadioFile.bin. 
+#I would then be under the impression that the gnu script will then create the file again with whatever new input 
+#there is.
+#and at that 30 minutes we also increment what file we are writing our information to by one. 
+# And this code will then repeat until another time constraint
+
+#for( like 30 days){
+#   gnuBinFileTimeLength
+#   
+#
+#  }
+#
+#
+#
+#
+#
